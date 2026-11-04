@@ -1,7 +1,7 @@
 package com.ly.ecommerce.service;
 
-import com.ly.ecommerce.dto.UserRequest;
-import com.ly.ecommerce.dto.UserResponse;
+import com.ly.ecommerce.dto.UserDto.UserRequest;
+import com.ly.ecommerce.dto.UserDto.UserResponse;
 import com.ly.ecommerce.mapper.AddressMapper;
 import com.ly.ecommerce.mapper.UserMapper;
 import com.ly.ecommerce.model.Address;

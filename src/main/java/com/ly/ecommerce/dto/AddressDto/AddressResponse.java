@@ -1,4 +1,4 @@
-package com.ly.ecommerce.dto;
+package com.ly.ecommerce.dto.AddressDto;
 
 import lombok.Builder;
 
