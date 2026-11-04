@@ -1,0 +1,16 @@
+POST http://localhost:8080/api/users
+Content-Type: application/json
+
+{
+  "firstName": "Ly",
+  "lastName": "lkuy",
+  "email": "ly@gmail.com",
+  "phone": "098765",
+  "addressRequest": {
+    "zip": "12345",
+    "street": "598",
+    "state": "sdfg",
+    "country": "Cambodia",
+    "city": "PP"
+  }
+}
