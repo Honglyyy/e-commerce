@@ -55,4 +55,11 @@ public class ProductService {
         product.setActive(false);
         productRepository.save(product);
     }
+
+    public List<ProductResponse> searchProduct(String keyword) {
+        return productRepository.searchProducts(keyword)
+                .stream()
+                .map(productMapper::toProductDto)
+                .toList();
+    }
 }

@@ -1,0 +1,147 @@
+POST http://localhost:8080/api/products
+Content-Type: application/json
+
+{
+  "name": "Coke",
+  "description": "Refreshing Coca-Cola soft drink",
+  "price": 10,
+  "quantity": 100,
+  "category": "Beverages",
+  "imageUrl": "coke.jpg",
+  "active": true
+}
+
+###
+
+POST http://localhost:8080/api/products
+Content-Type: application/json
+
+{
+  "name": "Pepsi",
+  "description": "Refreshing Pepsi cola drink",
+  "price": 10,
+  "quantity": 80,
+  "category": "Beverages",
+  "imageUrl": "pepsi.jpg",
+  "active": true
+}
+
+###
+
+POST http://localhost:8080/api/products
+Content-Type: application/json
+
+{
+  "name": "Mineral Water",
+  "description": "Pure drinking mineral water",
+  "price": 5,
+  "quantity": 150,
+  "category": "Beverages",
+  "imageUrl": "water.jpg",
+  "active": true
+}
+
+###
+
+POST http://localhost:8080/api/products
+Content-Type: application/json
+
+{
+  "name": "Orange Juice",
+  "description": "Fresh orange flavored juice",
+  "price": 12,
+  "quantity": 50,
+  "category": "Beverages",
+  "imageUrl": "orange-juice.jpg",
+  "active": true
+}
+
+###
+
+POST http://localhost:8080/api/products
+Content-Type: application/json
+
+{
+  "name": "Potato Chips",
+  "description": "Crispy salted potato chips",
+  "price": 8,
+  "quantity": 60,
+  "category": "Snacks",
+  "imageUrl": "chips.jpg",
+  "active": true
+}
+
+###
+
+POST http://localhost:8080/api/products
+Content-Type: application/json
+
+{
+  "name": "Chocolate Bar",
+  "description": "Sweet milk chocolate bar",
+  "price": 7,
+  "quantity": 45,
+  "category": "Snacks",
+  "imageUrl": "chocolate.jpg",
+  "active": true
+}
+
+###
+
+POST http://localhost:8080/api/products
+Content-Type: application/json
+
+{
+  "name": "Instant Noodles",
+  "description": "Quick and delicious instant noodles",
+  "price": 6,
+  "quantity": 120,
+  "category": "Food",
+  "imageUrl": "noodles.jpg",
+  "active": false
+}
+
+###
+
+POST http://localhost:8080/api/products
+Content-Type: application/json
+
+{
+  "name": "Milk",
+  "description": "Fresh full cream milk",
+  "price": 15,
+  "quantity": 40,
+  "category": "Dairy",
+  "imageUrl": "milk.jpg",
+  "active": true
+}
+
+###
+
+POST http://localhost:8080/api/products
+Content-Type: application/json
+
+{
+  "name": "Green Tea",
+  "description": "Refreshing bottled green tea",
+  "price": 9,
+  "quantity": 75,
+  "category": "Beverages",
+  "imageUrl": "green-tea.jpg",
+  "active": false
+}
+
+###
+
+POST http://localhost:8080/api/products
+Content-Type: application/json
+
+{
+  "name": "Cookies",
+  "description": "Crunchy butter cookies",
+  "price": 11,
+  "quantity": 90,
+  "category": "Snacks",
+  "imageUrl": "cookies.jpg",
+  "active": true
+}
