@@ -83,4 +83,46 @@ public class CartItemService {
                 .items(itemResponses)
                 .build();
     }
+
+    @Transactional
+    public CartResponse removeFromCart(String userId, Long productId) {
+        Long parsedUserId;
+        try {
+            parsedUserId = Long.valueOf(userId);
+        } catch (NumberFormatException e) {
+            throw new IllegalArgumentException("Invalid user ID");
+        }
+
+        User user = userRepository.findById(parsedUserId)
+                .orElseThrow(() -> new IllegalArgumentException("User not found"));
+
+        Product product = productRepository.findById(productId)
+                .orElseThrow(() -> new IllegalArgumentException("Product not found"));
+
+
+        CartItem cartItem = cartItemRepository.findByUserAndProduct(user, product)
+                .orElseThrow(() -> new IllegalArgumentException("Item not found"));
+
+        int newTotalQuantity = cartItem.getQuantity() - 1;
+
+        BigDecimal unitPrice = product.getPrice() != null ? product.getPrice() : BigDecimal.ZERO;
+        cartItem.setQuantity(newTotalQuantity);
+        cartItem.setPrice(unitPrice.multiply(BigDecimal.valueOf(newTotalQuantity)));
+        cartItemRepository.save(cartItem);
+
+        List<CartItem> cartItems = cartItemRepository.findByUser(user);
+        List<CartItemResponse> itemResponses = cartItems.stream()
+                .map(item -> CartItemResponse.builder()
+                        .productId(item.getProduct().getId())
+                        .quantity(item.getQuantity())
+                        .price(item.getPrice())
+                        .build())
+                .toList();
+
+
+        return CartResponse.builder()
+                .userId(parsedUserId)
+                .items(itemResponses)
+                .build();
+    }
 }

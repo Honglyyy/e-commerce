@@ -6,3 +6,8 @@ X-User-ID: 1
   "productId": 1,
   "quantity": 1
 }
+
+
+###
+POST localhost:8080/api/cart/remove/1
+X-User-ID: 1

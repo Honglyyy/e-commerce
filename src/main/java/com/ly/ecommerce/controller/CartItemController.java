@@ -22,4 +22,12 @@ public class CartItemController {
     ){
         return ResponseEntity.ok(cartItemService.addToCart(userId,cartItemRequest));
     }
+
+    @PostMapping("/remove/{productId}")
+    public ResponseEntity<CartResponse> removeFromCart(
+            @RequestHeader("X-User-ID") String userId,
+            @PathVariable Long productId
+    ){
+        return  ResponseEntity.ok(cartItemService.removeFromCart(userId,productId));
+    }
 }
