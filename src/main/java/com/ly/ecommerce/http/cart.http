@@ -1,4 +1,4 @@
-POST http://localhost:8080/api/cart
+POST http://localhost:8080/api/carts
 Content-Type: application/json
 X-User-ID: 1
 
@@ -9,9 +9,9 @@ X-User-ID: 1
 
 
 ###
-POST localhost:8080/api/cart/remove/3
+POST localhost:8080/api/carts/remove/1
 X-User-ID: 1
 
 ###
-GET localhost:8080/api/cart
+GET localhost:8080/api/carts
 X-User-ID: 1

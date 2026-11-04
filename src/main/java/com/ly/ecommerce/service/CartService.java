@@ -58,7 +58,8 @@ public class CartService {
 
         BigDecimal unitPrice = product.getPrice() != null ? product.getPrice() : BigDecimal.ZERO;
         cartItem.setQuantity(newTotalQuantity);
-        cartItem.setPrice(unitPrice.multiply(BigDecimal.valueOf(newTotalQuantity)));
+        cartItem.setPrice(unitPrice);
+        cartItem.setSubtotal(unitPrice.multiply(BigDecimal.valueOf(newTotalQuantity)));
         cartItemRepository.save(cartItem);
 
         return getCartResponse(user.getId(), user);
@@ -80,7 +81,7 @@ public class CartService {
 
         BigDecimal unitPrice = product.getPrice() != null ? product.getPrice() : BigDecimal.ZERO;
         cartItem.setQuantity(newTotalQuantity);
-        cartItem.setPrice(unitPrice.multiply(BigDecimal.valueOf(newTotalQuantity)));
+        cartItem.setSubtotal(unitPrice.multiply(BigDecimal.valueOf(newTotalQuantity)));
         cartItemRepository.save(cartItem);
 
         return getCartResponse(user.getId(), user);
@@ -98,6 +99,22 @@ public class CartService {
                 .orElseThrow(() -> new IllegalArgumentException("User not found"));
 
         return getCartResponse(parsedUserId, user);
+    }
+
+    @Transactional
+    public void clearCart(String userId) {
+        Long parsedUserId;
+        try {
+            parsedUserId = Long.valueOf(userId);
+        } catch (NumberFormatException e) {
+            throw new IllegalArgumentException("Invalid user ID");
+        }
+
+        User user  = userRepository.findById(parsedUserId)
+                .orElseThrow(() -> new IllegalArgumentException("User not found"));
+
+        cartItemRepository.deleteByUser(user);
+
     }
 
     // Get cart response utility method
@@ -122,6 +139,7 @@ public class CartService {
                         .productId(item.getProduct().getId())
                         .quantity(item.getQuantity())
                         .price(item.getPrice())
+                        .subTotal(item.getSubtotal())
                         .build())
                 .toList();
 
