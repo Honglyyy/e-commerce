@@ -1,7 +1,7 @@
 package com.ly.ecommerce.mapper;
 
-import com.ly.ecommerce.dto.AddressDto.AddressRequest;
-import com.ly.ecommerce.dto.AddressDto.AddressResponse;
+import com.ly.ecommerce.dto.addressDto.AddressRequest;
+import com.ly.ecommerce.dto.addressDto.AddressResponse;
 import com.ly.ecommerce.model.Address;
 import org.springframework.stereotype.Component;
 

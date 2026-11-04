@@ -1,7 +1,7 @@
 package com.ly.ecommerce.mapper;
 
-import com.ly.ecommerce.dto.UserDto.UserRequest;
-import com.ly.ecommerce.dto.UserDto.UserResponse;
+import com.ly.ecommerce.dto.userDto.UserRequest;
+import com.ly.ecommerce.dto.userDto.UserResponse;
 import com.ly.ecommerce.model.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
