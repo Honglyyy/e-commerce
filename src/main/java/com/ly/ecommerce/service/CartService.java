@@ -18,7 +18,7 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class CartItemService {
+public class CartService {
     private final CartItemRepository cartItemRepository;
     private final ProductRepository productRepository;
     private final UserRepository userRepository;
@@ -32,15 +32,7 @@ public class CartItemService {
             throw new IllegalArgumentException("Quantity must be greater than zero");
         }
 
-        Long parsedUserId;
-        try {
-            parsedUserId = Long.valueOf(userId);
-        } catch (NumberFormatException e) {
-            throw new IllegalArgumentException("Invalid user ID");
-        }
-
-        User user = userRepository.findById(parsedUserId)
-                .orElseThrow(() -> new IllegalArgumentException("User not found"));
+        User user = getUserCart(userId);
 
         Product product = productRepository.findById(cartItemRequest.productId())
                 .orElseThrow(() -> new IllegalArgumentException("Product not found"));
@@ -69,32 +61,13 @@ public class CartItemService {
         cartItem.setPrice(unitPrice.multiply(BigDecimal.valueOf(newTotalQuantity)));
         cartItemRepository.save(cartItem);
 
-        List<CartItem> cartItems = cartItemRepository.findByUser(user);
-        List<CartItemResponse> itemResponses = cartItems.stream()
-                .map(item -> CartItemResponse.builder()
-                        .productId(item.getProduct().getId())
-                        .quantity(item.getQuantity())
-                        .price(item.getPrice())
-                        .build())
-                .toList();
-
-        return CartResponse.builder()
-                .userId(parsedUserId)
-                .items(itemResponses)
-                .build();
+        return getCartResponse(user.getId(), user);
     }
 
     @Transactional
     public CartResponse removeFromCart(String userId, Long productId) {
-        Long parsedUserId;
-        try {
-            parsedUserId = Long.valueOf(userId);
-        } catch (NumberFormatException e) {
-            throw new IllegalArgumentException("Invalid user ID");
-        }
 
-        User user = userRepository.findById(parsedUserId)
-                .orElseThrow(() -> new IllegalArgumentException("User not found"));
+        User user = getUserCart(userId);
 
         Product product = productRepository.findById(productId)
                 .orElseThrow(() -> new IllegalArgumentException("Product not found"));
@@ -110,6 +83,39 @@ public class CartItemService {
         cartItem.setPrice(unitPrice.multiply(BigDecimal.valueOf(newTotalQuantity)));
         cartItemRepository.save(cartItem);
 
+        return getCartResponse(user.getId(), user);
+    }
+
+    public CartResponse getCartItems(String userId) {
+        Long parsedUserId;
+        try {
+            parsedUserId = Long.valueOf(userId);
+        } catch (NumberFormatException e) {
+            throw new IllegalArgumentException("Invalid user ID");
+        }
+
+        User user  = userRepository.findById(parsedUserId)
+                .orElseThrow(() -> new IllegalArgumentException("User not found"));
+
+        return getCartResponse(parsedUserId, user);
+    }
+
+    // Get cart response utility method
+    public User getUserCart(String userId) {
+        Long parsedUserId;
+        try {
+            parsedUserId = Long.valueOf(userId);
+        } catch (NumberFormatException e) {
+            throw new IllegalArgumentException("Invalid user ID");
+        }
+
+        User user  = userRepository.findById(parsedUserId)
+                .orElseThrow(() -> new IllegalArgumentException("User not found"));
+
+        return user;
+    }
+
+    private CartResponse getCartResponse(Long userId, User user) {
         List<CartItem> cartItems = cartItemRepository.findByUser(user);
         List<CartItemResponse> itemResponses = cartItems.stream()
                 .map(item -> CartItemResponse.builder()
@@ -121,7 +127,7 @@ public class CartItemService {
 
 
         return CartResponse.builder()
-                .userId(parsedUserId)
+                .userId(userId)
                 .items(itemResponses)
                 .build();
     }

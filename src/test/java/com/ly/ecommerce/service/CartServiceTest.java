@@ -24,7 +24,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
-class CartItemServiceTest {
+class CartServiceTest {
 
     @Mock
     private CartItemRepository cartItemRepository;
@@ -36,7 +36,7 @@ class CartItemServiceTest {
     private UserRepository userRepository;
 
     @InjectMocks
-    private CartItemService cartItemService;
+    private CartService cartService;
 
     private User testUser;
     private Product testProduct;
@@ -67,7 +67,7 @@ class CartItemServiceTest {
         when(cartItemRepository.save(any(CartItem.class))).thenReturn(savedCartItem);
         when(cartItemRepository.findByUser(testUser)).thenReturn(List.of(savedCartItem));
 
-        CartResponse response = cartItemService.addToCart("1", request);
+        CartResponse response = cartService.addToCart("1", request);
 
         assertNotNull(response);
         assertEquals(1L, response.userId());
@@ -91,7 +91,7 @@ class CartItemServiceTest {
         when(cartItemRepository.save(any(CartItem.class))).thenReturn(updatedItem);
         when(cartItemRepository.findByUser(testUser)).thenReturn(List.of(updatedItem));
 
-        CartResponse response = cartItemService.addToCart("1", request);
+        CartResponse response = cartService.addToCart("1", request);
 
         assertNotNull(response);
         assertEquals(1, response.items().size());
@@ -110,7 +110,7 @@ class CartItemServiceTest {
 
         // 4 existing + 3 requested = 7 > 5 stock
         IllegalArgumentException ex = assertThrows(IllegalArgumentException.class,
-                () -> cartItemService.addToCart("1", request));
+                () -> cartService.addToCart("1", request));
 
         assertTrue(ex.getMessage().contains("Insufficient stock"));
         verify(cartItemRepository, never()).save(any());
@@ -125,7 +125,7 @@ class CartItemServiceTest {
         when(productRepository.findById(10L)).thenReturn(Optional.of(testProduct));
 
         IllegalArgumentException ex = assertThrows(IllegalArgumentException.class,
-                () -> cartItemService.addToCart("1", request));
+                () -> cartService.addToCart("1", request));
 
         assertTrue(ex.getMessage().contains("not active"));
         verify(cartItemRepository, never()).save(any());
@@ -136,7 +136,7 @@ class CartItemServiceTest {
         CartItemRequest request = new CartItemRequest(10L, 0);
 
         IllegalArgumentException ex = assertThrows(IllegalArgumentException.class,
-                () -> cartItemService.addToCart("1", request));
+                () -> cartService.addToCart("1", request));
 
         assertTrue(ex.getMessage().contains("Quantity must be greater than zero"));
     }
