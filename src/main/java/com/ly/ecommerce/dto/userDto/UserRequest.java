@@ -1,6 +1,6 @@
-package com.ly.ecommerce.dto.UserDto;
+package com.ly.ecommerce.dto.userDto;
 
-import com.ly.ecommerce.dto.AddressDto.AddressRequest;
+import com.ly.ecommerce.dto.addressDto.AddressRequest;
 import lombok.Builder;
 
 @Builder

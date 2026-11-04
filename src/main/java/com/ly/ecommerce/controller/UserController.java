@@ -1,7 +1,7 @@
 package com.ly.ecommerce.controller;
 
-import com.ly.ecommerce.dto.UserDto.UserRequest;
-import com.ly.ecommerce.dto.UserDto.UserResponse;
+import com.ly.ecommerce.dto.userDto.UserRequest;
+import com.ly.ecommerce.dto.userDto.UserResponse;
 import com.ly.ecommerce.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;

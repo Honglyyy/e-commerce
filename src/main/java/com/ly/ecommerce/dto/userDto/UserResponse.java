@@ -1,6 +1,6 @@
-package com.ly.ecommerce.dto.UserDto;
+package com.ly.ecommerce.dto.userDto;
 
-import com.ly.ecommerce.dto.AddressDto.AddressResponse;
+import com.ly.ecommerce.dto.addressDto.AddressResponse;
 import com.ly.ecommerce.model.enums.UserRole;
 import lombok.Builder;
 

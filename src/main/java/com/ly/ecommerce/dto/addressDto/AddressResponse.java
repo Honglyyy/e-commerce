@@ -1,9 +1,9 @@
-package com.ly.ecommerce.dto.AddressDto;
+package com.ly.ecommerce.dto.addressDto;
 
 import lombok.Builder;
 
 @Builder
-public record AddressRequest(
+public record AddressResponse(
        String street,
         String city,
         String state,
