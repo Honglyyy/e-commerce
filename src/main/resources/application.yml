@@ -1,0 +1,43 @@
+spring:
+  application:
+    name: e-commerce
+
+  # Database Connection Settings
+  datasource:
+    url: jdbc:h2:mem:e-commerce
+    driver-class-name: org.h2.Driver
+    username: sa
+    password: "123"
+
+  # H2 Web Console Settings
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+      settings:
+        web-allow-others: false
+
+  # JPA / Hibernate Settings
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+
+# Actuator
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: always
+  info:
+    env:
+      enabled: true
+
+info:
+  app:
+    name: Ecommerce App
+    description: haha
+    version: v.1.0
